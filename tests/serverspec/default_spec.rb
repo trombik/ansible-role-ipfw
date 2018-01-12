@@ -23,11 +23,11 @@ describe command "ifconfig ipfw0" do
   its(:stdout) { should match(/^ipfw0: flags=\d+<UP,/) }
 end
 
-[
-  "firewall_enable",
-  "dummynet_enable",
-  "firewall_nat_enable",
-  "firewall_logif"
+%w[
+  firewall_enable
+  dummynet_enable
+  firewall_nat_enable
+  firewall_logif
 ].each do |i|
   describe file "/etc/rc.conf" do
     its(:content) { should match(/^#{Regexp.escape(i)}="YES"$/) }
@@ -38,10 +38,10 @@ describe file "/etc/rc.conf" do
   its(:content) { should match(/^firewall_script="#{Regexp.escape(config)}"$/) }
 end
 
-[
-  "ipfw",
-  "dummynet",
-  "ipfw_nat"
+%w[
+  ipfw
+  dummynet
+  ipfw_nat
 ].each do |kmod|
   describe command "kldstat -n #{kmod}" do
     its(:exit_status) { should eq 0 }
