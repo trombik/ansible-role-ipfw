@@ -1,0 +1,6 @@
+---
+
+- name: Install ipfw
+  pkgng:
+    name: ipfw
+    state: present

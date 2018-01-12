@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - ansible-role-ipfw
+  vars:
+    ipfw_config: ""

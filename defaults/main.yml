@@ -1,0 +1,8 @@
+ipfw_user: ipfw
+ipfw_group: ipfw
+ipfw_log_dir: /var/log/ipfw
+ipfw_db_dir: "{{ __ipfw_db_dir }}"
+ipfw_service: ipfw
+ipfw_conf_dir: "{{ __ipfw_conf_dir }}"
+ipfw_conf_file: "{{ __ipfw_conf_dir }}/ipfw.conf"
+ipfw_flags: ""

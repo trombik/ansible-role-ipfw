@@ -1,0 +1,37 @@
+---
+# tasks file for ansible-role-ipfw
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: "install-{{ ansible_os_family }}.yml"
+
+- name: Create log directory
+  file:
+    path: "{{ ipfw_log_dir }}"
+    mode: 0755
+    owner: "{{ ipfw_user }}"
+    group: "{{ ipfw_group }}"
+    state: directory
+  notify: Restart ipfw
+
+- name: Create db directory
+  file:
+    path: "{{ ipfw_db_dir }}"
+    mode: 0755
+    owner: "{{ ipfw_user }}"
+    group: "{{ ipfw_group }}"
+    state: directory
+  notify: Restart ipfw
+
+- name: Create ipfw.conf
+  template:
+    src: ipfw.conf.j2
+    dest: "{{ ipfw_conf_file }}"
+    validate: echo %s
+  notify: Restart ipfw
+
+- name: Start ipfw
+  service:
+    name: "{{ ipfw_service }}"
+    enabled: true
+    state: started
