@@ -8,7 +8,7 @@ galaxy_info:
   platforms:
   - name: FreeBSD
     versions:
-    - 10.3
+    - 11.1
 #  - name: OpenBSD
 #    versions:
 #    - 6.0
@@ -24,4 +24,3 @@ galaxy_info:
   galaxy_tags:
     - system
 #dependencies:
-#  - { role: username.common, some_parameter: 3 }

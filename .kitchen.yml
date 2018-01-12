@@ -15,16 +15,17 @@ provisioner:
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
   # requirements_path: requirements.yml
   http_proxy: <%= ENV['ANSIBLE_PROXY'] %>
-  idempotency_test: true
+  # XXX ipfw service is not idempotent
+  idempotency_test: false
   additional_copy_path:
     - extra_modules
     - filter_plugins
   ansible_vault_password_file: <%= File.expand_path(ENV['ANSIBLE_VAULT_PASSWORD_FILE'] || '') %>
 
 platforms:
-  - name: freebsd-10.3-amd64
+  - name: freebsd-11.1-amd64
     driver:
-      box: trombik/ansible-freebsd-10.3-amd64
+      box: trombik/test-freebsd-11.1-amd64
       box_check_update: false
     driver_config:
       ssh:

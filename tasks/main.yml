@@ -5,33 +5,15 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
-- name: Create log directory
-  file:
-    path: "{{ ipfw_log_dir }}"
-    mode: 0755
-    owner: "{{ ipfw_user }}"
-    group: "{{ ipfw_group }}"
-    state: directory
-  notify: Restart ipfw
-
-- name: Create db directory
-  file:
-    path: "{{ ipfw_db_dir }}"
-    mode: 0755
-    owner: "{{ ipfw_user }}"
-    group: "{{ ipfw_group }}"
-    state: directory
-  notify: Restart ipfw
-
-- name: Create ipfw.conf
+- name: Create ipfw_script
   template:
     src: ipfw.conf.j2
     dest: "{{ ipfw_conf_file }}"
-    validate: echo %s
+    mode: 0600
+    validate: sh -n %s
   notify: Restart ipfw
 
 - name: Start ipfw
   service:
     name: "{{ ipfw_service }}"
-    enabled: true
     state: started
